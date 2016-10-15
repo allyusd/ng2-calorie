@@ -7,20 +7,26 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AlertsComponent
+    AlertsComponent,
+    HomeComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: 'alerts', component: AlertsComponent }
+      { path: '', component: HomeComponent },
+      { path: 'alerts', component: AlertsComponent },
+      { path: '**', component: PageNotFoundComponent },
     ]),
-    AlertModule
+    AlertModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
