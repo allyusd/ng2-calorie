@@ -15,10 +15,12 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/chart.js/dist/Chart.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
