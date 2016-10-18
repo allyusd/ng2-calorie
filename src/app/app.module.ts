@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { CalorieComponent } from './calorie/calorie.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
     PageNotFoundComponent,
     AlertsComponent,
     LineChartComponent,
+    CalorieComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
       { path: '', component: HomeComponent },
       { path: 'alerts', component: AlertsComponent },
       { path: 'line-chart', component: LineChartComponent },
+      { path: 'calorie', component: CalorieComponent },
       { path: '**', component: PageNotFoundComponent },
     ]),
     AlertModule,
