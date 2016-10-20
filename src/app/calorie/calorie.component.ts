@@ -81,7 +81,10 @@ export class CalorieComponent implements OnInit, AfterViewInit {
       let date = entry['gsx$date']['$t'];
       let bodyweight = entry['gsx$bodyweight']['$t'];
 
-      if (date !== "" && bodyweight !== "") {
+      let d = new Date().toISOString().slice(0, 10).split('-');
+      let today = d[0] +'/'+ d[1] +'/'+ d[2];
+
+      if (date !== "" && bodyweight !== "" && date <= today) {
         this.lineChartLabels.unshift(date);
         this.lineChartData[0].data.unshift(bodyweight);
       }
