@@ -79,7 +79,7 @@ export class CalorieComponent implements OnInit, AfterViewInit {
         xAxes: [{
           type: 'time',
           time: {
-            //unit: 'day',
+            unit: 'month',
             displayFormats: {
               'millisecond': 'HH:mm:ss.SSS',
               'second': 'HH:mm:ss.SSS',
@@ -87,9 +87,9 @@ export class CalorieComponent implements OnInit, AfterViewInit {
               'hour': 'HH:mm:ss.SSS',
               'day': 'YYYY/MM/DD',
               'week': 'YYYY/MM/DD',
-              'month': 'YYYY/MM/DD',
-              'quarter': 'YYYY/MM/DD',
-              'year': 'YYYY/MM/DD',
+              'month': 'YYYY/MM',
+              'quarter': 'YYYY/MM',
+              'year': 'YYYY/MM',
             }
           }
         }],
