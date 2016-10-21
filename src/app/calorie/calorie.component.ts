@@ -17,10 +17,7 @@ export class CalorieComponent implements OnInit, AfterViewInit {
     {data: [], label: 'Body Weight'}
   ];
   public lineChartLabels:Array<any> = [];
-  public lineChartOptions:any = {
-    animation: false,
-    responsive: false
-  };
+  public lineChartOptions:any = {};
   public lineChartColors:Array<any> = [
     {
       fill: false,
@@ -52,6 +49,7 @@ export class CalorieComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.timeLine();
     this.getData();
   }
 
@@ -71,6 +69,43 @@ export class CalorieComponent implements OnInit, AfterViewInit {
 
   public chartHovered(e:any):void {
     console.log(e);
+  }
+
+  public timeLine():void {
+    let options = {
+      animation: false,
+      responsive: false,
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            //unit: 'day',
+            displayFormats: {
+              'millisecond': 'HH:mm:ss.SSS',
+              'second': 'HH:mm:ss.SSS',
+              'minute': 'HH:mm:ss.SSS',
+              'hour': 'HH:mm:ss.SSS',
+              'day': 'YYYY/MM/DD',
+              'week': 'YYYY/MM/DD',
+              'month': 'YYYY/MM/DD',
+              'quarter': 'YYYY/MM/DD',
+              'year': 'YYYY/MM/DD',
+            }
+          }
+        }],
+      }
+    };
+
+    this.lineChartOptions = options;
+  }
+
+  public dataLine():void {
+    let options = {
+      animation: false,
+      responsive: false
+    };
+
+    this.lineChartOptions = options;
   }
 
   private dataProcess = (data:any):void => {
