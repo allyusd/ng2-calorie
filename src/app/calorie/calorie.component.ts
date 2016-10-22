@@ -3,6 +3,8 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-calorie',
   templateUrl: './calorie.component.html',
@@ -116,8 +118,7 @@ export class CalorieComponent implements OnInit, AfterViewInit {
       let date = entry['gsx$date']['$t'];
       let bodyweight = entry['gsx$bodyweight']['$t'];
 
-      let d = new Date().toISOString().slice(0, 10).split('-');
-      let today = d[0] +'/'+ d[1] +'/'+ d[2];
+      let today = moment().format('YYYY/MM/DD');
 
       if (date !== "" && bodyweight !== "" && date <= today) {
         this.lineChartLabels.unshift(date);
