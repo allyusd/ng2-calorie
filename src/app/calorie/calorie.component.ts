@@ -118,7 +118,7 @@ export class CalorieComponent implements OnInit, AfterViewInit {
       let date = entry['gsx$date']['$t'];
       let bodyweight = entry['gsx$bodyweight']['$t'];
 
-      let today = moment().format('YYYY/MM/DD');
+      let today = moment().format('YYYY-MM-DD');
 
       if (date !== "" && bodyweight !== "" && date <= today) {
         this.lineChartLabels.unshift(date);
