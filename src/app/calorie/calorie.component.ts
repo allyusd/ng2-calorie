@@ -13,6 +13,18 @@ import * as moment from 'moment';
 export class CalorieComponent implements OnInit, AfterViewInit {
   private url:string = 'https://spreadsheets.google.com/feeds/list/1EXEiX0Mh2vbD0JF7gyQl5ff3xMhBRCz0kMSNVcwDsyo/1/public/values?alt=json';
   private initialized:boolean = false;
+  private lineMode:string = 'time';
+  private dataScoure:any = {
+    label: [],
+    data: [
+      {data: [], label: 'Body Weight'}
+    ]
+  };
+
+  public dateFilter:any = {
+    after: '2008-01-01',
+    before: '2026-01-01'
+  }
 
   // lineChart
   public lineChartData:Array<any> = [
@@ -23,7 +35,8 @@ export class CalorieComponent implements OnInit, AfterViewInit {
   public lineChartColors:Array<any> = [
     {
       fill: false,
-      lineTension: 0.1,
+      borderWidth: 1,
+      lineTension: 0,
       backgroundColor: "rgba(75,192,192,0.4)",
       borderColor: "rgba(75,192,192,1)",
       borderCapStyle: 'butt',
@@ -74,45 +87,87 @@ export class CalorieComponent implements OnInit, AfterViewInit {
   }
 
   public timeLine():void {
-    let options = {
-      animation: false,
-      responsive: false,
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            unit: 'month',
-            displayFormats: {
-              'millisecond': 'HH:mm:ss.SSS',
-              'second': 'HH:mm:ss.SSS',
-              'minute': 'HH:mm:ss.SSS',
-              'hour': 'HH:mm:ss.SSS',
-              'day': 'YYYY/MM/DD',
-              'week': 'YYYY/MM/DD',
-              'month': 'YYYY/MM',
-              'quarter': 'YYYY/MM',
-              'year': 'YYYY/MM',
-            }
-          }
-        }],
-      }
-    };
+    this.lineMode = 'time';
+    this.updateLineMode();
+    // let options = {
+    //   animation: false,
+    //   responsive: false,
+    //   scales: {
+    //     xAxes: [{
+    //       type: 'time',
+    //       time: {
+    //         //unit: 'month',
+    //         displayFormats: {
+    //           'millisecond': 'HH:mm:ss.SSS',
+    //           'second': 'HH:mm:ss.SSS',
+    //           'minute': 'HH:mm',
+    //           'hour': 'HH:mm',
+    //           'day': 'YYYY-MM-DD',
+    //           'week': 'YYYY-MM-DD',
+    //           'month': 'YYYY-MM',
+    //           'quarter': 'YYYY - [Q]Q',
+    //           'year': 'YYYY',
+    //         }
+    //       }
+    //     }],
+    //   }
+    // };
 
-    this.lineChartOptions = options;
+    // this.lineChartOptions = options;
   }
 
-  public dataLine():void {
-    let options = {
-      animation: false,
-      responsive: false
-    };
+  public dataLine():void {        
+    this.lineMode = 'data';
+    this.updateLineMode();
+
+    // let options = {
+    //   animation: false,
+    //   responsive: false
+    // };
+
+    // this.lineChartOptions = options;
+  }
+
+  private updateLineMode():void {
+    let options = {};
+
+    if (this.lineMode === 'time') {
+      options = {
+        animation: false,
+        responsive: false,
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              //unit: 'month',
+              displayFormats: {
+                'millisecond': 'HH:mm:ss.SSS',
+                'second': 'HH:mm:ss.SSS',
+                'minute': 'HH:mm',
+                'hour': 'HH:mm',
+                'day': 'YYYY-MM-DD',
+                'week': 'YYYY-MM-DD',
+                'month': 'YYYY-MM',
+                'quarter': 'YYYY - [Q]Q',
+                'year': 'YYYY',
+              }
+            }
+          }],
+        }
+      };
+    } else {
+      options = {
+        animation: false,
+        responsive: false
+      };
+    }
 
     this.lineChartOptions = options;
   }
 
   private dataProcess = (data:any):void => {
-    this.lineChartLabels.length = 0;
-    this.lineChartData[0].data.length = 0;
+    this.dataScoure.label.length = 0;
+    this.dataScoure.data[0].data.length = 0;
 
     for (let entry of data.json().feed.entry) {
       let date = entry['gsx$date']['$t'];
@@ -121,15 +176,38 @@ export class CalorieComponent implements OnInit, AfterViewInit {
       let today = moment().format('YYYY-MM-DD');
 
       if (date !== "" && bodyweight !== "" && date <= today) {
-        this.lineChartLabels.unshift(date);
-        this.lineChartData[0].data.unshift(bodyweight);
+        this.dataScoure.label.unshift(date);
+        this.dataScoure.data[0].data.unshift(bodyweight);
+      }
+    }
+
+    this.lineChartLabels = this.dataScoure.label.slice();
+    this.lineChartData = JSON.parse(JSON.stringify(this.dataScoure.data));
+
+    this.initialized = true;
+  }
+
+  private filterProcess():void {
+    this.lineChartLabels.length = 0;
+    this.lineChartData[0].data.length = 0;
+
+    for (let i = 0; i < this.dataScoure.label.length; i++) {
+
+      let date = this.dataScoure.label[i];
+      let bodyweight = this.dataScoure.data[0].data[i];
+
+      let after = moment(this.dateFilter.after);
+      let before = moment(this.dateFilter.before);
+
+      if (moment(date) >= after && moment(date) <= before) {
+        this.lineChartLabels.push(date);
+        this.lineChartData[0].data.push(bodyweight);
       }
     }
 
     this.lineChartLabels = this.lineChartLabels.slice();
     this.lineChartData = this.lineChartData.slice();
-
-    this.initialized = true;
+    this.updateLineMode();
   }
   
   private handleError(error: any): Promise<any> {
