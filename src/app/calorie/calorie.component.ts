@@ -130,8 +130,8 @@ export class CalorieComponent implements OnInit, AfterViewInit {
   }
 
   private filterProcess():void {
-    this.lineChartLabels.length = 0;
-    this.lineChartData[0].data.length = 0;
+    this.lineChartLabels = []
+    this.lineChartData[0].data = []
 
     for (let i = 0; i < this.dataScoure.label.length; i++) {
 
@@ -146,9 +146,6 @@ export class CalorieComponent implements OnInit, AfterViewInit {
         this.lineChartData[0].data.push(bodyweight);
       }
     }
-
-    this.lineChartLabels = this.lineChartLabels.slice();
-    this.lineChartData = this.lineChartData.slice();
   }
   
   private handleError(error: any): Promise<any> {
