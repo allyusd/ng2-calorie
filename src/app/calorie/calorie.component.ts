@@ -107,6 +107,20 @@ export class CalorieComponent implements OnInit, AfterViewInit {
     console.log(e);
   }
 
+  public firstTest():void {
+    this.dateFilter.after = '2015-11-26';
+    this.dateFilter.before = '2016-01-07';
+    this.filterProcess();
+  }
+
+  public secondTest():void {
+    let today = moment().format('YYYY-MM-DD');
+
+    this.dateFilter.after = '2016-09-29';
+    this.dateFilter.before = today;
+    this.filterProcess();
+  }
+
   private dataProcess = (data:any):void => {
     this.dataScoure.label.length = 0;
     this.dataScoure.data[0].data.length = 0;
