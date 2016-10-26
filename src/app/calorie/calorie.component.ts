@@ -31,7 +31,29 @@ export class CalorieComponent implements OnInit, AfterViewInit {
     {data: [], label: 'Body Weight'}
   ];
   public lineChartLabels:Array<any> = [];
-  public lineChartOptions:any = {};
+  public lineChartOptions:any = {
+        animation: false,
+        responsive: false,
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              //unit: 'month',
+              displayFormats: {
+                'millisecond': 'HH:mm:ss.SSS',
+                'second': 'HH:mm:ss.SSS',
+                'minute': 'HH:mm',
+                'hour': 'HH:mm',
+                'day': 'YYYY-MM-DD',
+                'week': 'YYYY-MM-DD',
+                'month': 'YYYY-MM',
+                'quarter': 'YYYY - [Q]Q',
+                'year': 'YYYY',
+              }
+            }
+          }],
+        }
+      };
   public lineChartColors:Array<any> = [
     {
       fill: false,
@@ -64,7 +86,6 @@ export class CalorieComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.timeLine();
     this.getData();
   }
 
@@ -84,85 +105,6 @@ export class CalorieComponent implements OnInit, AfterViewInit {
 
   public chartHovered(e:any):void {
     console.log(e);
-  }
-
-  public timeLine():void {
-    this.lineMode = 'time';
-    this.updateLineMode();
-    // let options = {
-    //   animation: false,
-    //   responsive: false,
-    //   scales: {
-    //     xAxes: [{
-    //       type: 'time',
-    //       time: {
-    //         //unit: 'month',
-    //         displayFormats: {
-    //           'millisecond': 'HH:mm:ss.SSS',
-    //           'second': 'HH:mm:ss.SSS',
-    //           'minute': 'HH:mm',
-    //           'hour': 'HH:mm',
-    //           'day': 'YYYY-MM-DD',
-    //           'week': 'YYYY-MM-DD',
-    //           'month': 'YYYY-MM',
-    //           'quarter': 'YYYY - [Q]Q',
-    //           'year': 'YYYY',
-    //         }
-    //       }
-    //     }],
-    //   }
-    // };
-
-    // this.lineChartOptions = options;
-  }
-
-  public dataLine():void {        
-    this.lineMode = 'data';
-    this.updateLineMode();
-
-    // let options = {
-    //   animation: false,
-    //   responsive: false
-    // };
-
-    // this.lineChartOptions = options;
-  }
-
-  private updateLineMode():void {
-    let options = {};
-
-    if (this.lineMode === 'time') {
-      options = {
-        animation: false,
-        responsive: false,
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              //unit: 'month',
-              displayFormats: {
-                'millisecond': 'HH:mm:ss.SSS',
-                'second': 'HH:mm:ss.SSS',
-                'minute': 'HH:mm',
-                'hour': 'HH:mm',
-                'day': 'YYYY-MM-DD',
-                'week': 'YYYY-MM-DD',
-                'month': 'YYYY-MM',
-                'quarter': 'YYYY - [Q]Q',
-                'year': 'YYYY',
-              }
-            }
-          }],
-        }
-      };
-    } else {
-      options = {
-        animation: false,
-        responsive: false
-      };
-    }
-
-    this.lineChartOptions = options;
   }
 
   private dataProcess = (data:any):void => {
@@ -207,7 +149,6 @@ export class CalorieComponent implements OnInit, AfterViewInit {
 
     this.lineChartLabels = this.lineChartLabels.slice();
     this.lineChartData = this.lineChartData.slice();
-    this.updateLineMode();
   }
   
   private handleError(error: any): Promise<any> {
