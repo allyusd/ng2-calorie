@@ -1,15 +1,18 @@
 <div class="row">
   <div class="col-md-12">
     <p></p>
-    <button (click)="firstTest()">First Test</button>
-    <button (click)="secondTest()">Second Test</button>
+    <button (click)="set(0)">Reset</button>
+    <button (click)="set(1)">Test 1</button>
+    <button (click)="set(2)">Test 2</button>
+    <button (click)="set(3)">Test 3</button>
+    <button (click)="set(4)">Test 4</button>
     <p></p>
     <input [(ngModel)]="dateFilter.after" placeholder="after">
     <input [(ngModel)]="dateFilter.before" placeholder="before">
     <button (click)="filterProcess()">Filter</button>
     <p></p>
     <div style="display: block;">
-    <canvas baseChart width="1700" height="700" *ngIf="initialized"
+    <canvas baseChart width="1500" height="580" *ngIf="initialized"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"

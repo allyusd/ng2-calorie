@@ -107,17 +107,31 @@ export class CalorieComponent implements OnInit, AfterViewInit {
     console.log(e);
   }
 
-  public firstTest():void {
-    this.dateFilter.after = '2015-11-26';
-    this.dateFilter.before = '2016-01-07';
-    this.filterProcess();
-  }
+  public set(index:number):void {
+    switch(index){
+      case 0:
+      this.dateFilter.after = '2008-01-01',
+      this.dateFilter.before = '2026-01-01'
+      break;
+      case 1:
+      this.dateFilter.after = '2015-11-26';
+      this.dateFilter.before = '2016-01-07';
+      break;
+      case 2:
+      this.dateFilter.after = '2016-09-29';
+      this.dateFilter.before = '2016-11-15';
+      break;
+      case 3:
+      this.dateFilter.after = '2017-08-24';
+      this.dateFilter.before = '2017-10-24';
+      break;
+      case 4:
+      let today = moment().format('YYYY-MM-DD');
 
-  public secondTest():void {
-    let today = moment().format('YYYY-MM-DD');
-
-    this.dateFilter.after = '2016-09-29';
-    this.dateFilter.before = today;
+      this.dateFilter.after = '2018-02-22';
+      this.dateFilter.before = today;
+      break;
+    }
     this.filterProcess();
   }
 
