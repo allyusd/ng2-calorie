@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-alerts',
@@ -6,28 +7,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alerts.component.css']
 })
 export class AlertsComponent implements OnInit {
-  public alerts:Array<Object> = [
-    {
-      type: 'danger',
-      msg: 'Oh snap! Change a few things up and try submitting again.'
-    },
+
+  alerts: any = [
     {
       type: 'success',
-      msg: 'Well done! You successfully read this important alert message.',
-      closable: true
+      msg: `<strong>Well done!</strong> You successfully read this important alert message.`
+    },
+    {
+      type: 'info',
+      msg: `<strong>Heads up!</strong> This alert needs your attention, but it's not super important.`
+    },
+    {
+      type: 'danger',
+      msg: `<strong>Warning!</strong> Better check yourself, you're not looking too good.`
     }
   ];
 
-  constructor() { }
+  constructor(sanitizer: DomSanitizer) {
+    this.alerts = this.alerts.map((alert: any) => ({
+      type: alert.type,
+      msg: sanitizer.sanitize(SecurityContext.HTML, alert.msg)
+    }));
+  }
 
   ngOnInit() {
   }
 
-  public closeAlert(i:number):void {
-    this.alerts.splice(i, 1);
-  }
- 
-  public addAlert():void {
-    this.alerts.push({msg: 'Another alert!', type: 'warning', closable: true});
+  addAlert(): void {
+    this.alerts.push({ msg: 'Another alert!', type: 'warning', closable: true });
   }
 }

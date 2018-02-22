@@ -1,31 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule }   from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
-import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { HomeComponent } from './home/home.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CalorieComponent } from './calorie/calorie.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    PageNotFoundComponent,
     AlertsComponent,
+    HomeComponent,
     LineChartComponent,
-    CalorieComponent,
+    PageNotFoundComponent,
+    CalorieComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'alerts', component: AlertsComponent },
@@ -33,8 +33,10 @@ import { CalorieComponent } from './calorie/calorie.component';
       { path: 'calorie', component: CalorieComponent },
       { path: '**', component: PageNotFoundComponent },
     ]),
-    AlertModule,
-    ChartsModule,
+    FormsModule,
+    HttpModule,
+    AlertModule.forRoot(),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

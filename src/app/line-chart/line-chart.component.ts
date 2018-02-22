@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
   // lineChart
   public lineChartData:Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
@@ -14,7 +20,6 @@ export class LineChartComponent implements OnInit {
   ];
   public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions:any = {
-    animation: false,
     responsive: true
   };
   public lineChartColors:Array<any> = [
@@ -45,12 +50,7 @@ export class LineChartComponent implements OnInit {
   ];
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+ 
   public randomize():void {
     let _lineChartData:Array<any> = new Array(this.lineChartData.length);
     for (let i = 0; i < this.lineChartData.length; i++) {
@@ -61,12 +61,12 @@ export class LineChartComponent implements OnInit {
     }
     this.lineChartData = _lineChartData;
   }
-
+ 
   // events
   public chartClicked(e:any):void {
     console.log(e);
   }
-
+ 
   public chartHovered(e:any):void {
     console.log(e);
   }
